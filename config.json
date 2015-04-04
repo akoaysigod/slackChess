@@ -1,0 +1,6 @@
+{
+    "imageDir": "/resources/",
+    "imageURL": "urlForImages",
+    "sendTextBoard": false,
+    "useBuiltinServer": false
+}
