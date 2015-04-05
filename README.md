@@ -53,6 +53,8 @@ Manage images in a nicer way.
 
 Connect to a DB and/or Reddis just in case something happens or to replay games, etc. Anything really I just want to set it up at some point for fun.
 
+Refactor 
+
 Castling. The library supports it but I forgot to check how it works. It actually might just work if you make the move.
 
 #screenshot
