@@ -23,6 +23,8 @@ I was going to add a simple get request server but I haven't yet. Right now I'm 
 
 # dependencies
 
+python3
+
 twisted
 
 autobahn
