@@ -3,6 +3,7 @@ import chess
 import json
 
 class Chess:
+  finished = False
   gameID = str(random.randint(0, 100000))
   imgURL = ''
 
@@ -30,6 +31,11 @@ class Chess:
     gameID += 1
     self.gameID = str(gameID)
     self.boardImage.create(self.gameID, self.board, self.board.turn)
+
+  def forfeit(self, player):
+    setTurn()
+    game.finished = True
+    return self.atMsg[self.turn] + "Your win!"
 
   def setTurn(self):
     if self.board.turn == 0:
@@ -63,6 +69,7 @@ class Chess:
     msg = self.boardLink + "\n" 
     if self.board.is_checkmate():
       self.setTurn()
+      self.finished = True
       msg += self.atMsg[self.turn] + "Checkmate! " + "You win.\n" 
     elif self.board.is_check():
       msg += "Check.\n"

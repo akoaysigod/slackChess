@@ -43,7 +43,7 @@ class SocketClient(WebSocketClientProtocol):
       userID = msg['user']
 
       if len(coms) > 1 and coms[1] == 'new':
-        if channelID in self.games:
+        if channelID in self.games and not self.games[channelID].finished:
           self.sendResponse('Game already in progress.', channelID)
         elif len(coms) == 3:
           userInvite = self.slackRequests.checkUsername(coms[2])
@@ -61,11 +61,24 @@ class SocketClient(WebSocketClientProtocol):
 
       elif len(coms) > 1 and coms[1] == 'move':
         if channelID in self.games:
-          if len(coms) == 3:
+          game = self.games[channelID]
+          if game.finished:
+            self.sendRespones("Game is complete.", channelID)
+            return
+          elif len(coms) == 3:
             move = coms[2]
-            game = self.games[channelID]
             resp = game.makeMove(userID, move)
             self.sendResponse(resp, channelID)
+
+      elif len(coms) > 1 and coms[1] == 'forfeit':
+        if channelID in self.games:
+          game = self.games[channelID]
+          if game.finished:
+            self.sendResponse("Game is already complete.", channelID)
+            return
+          resp = game.forfeit(userID)
+          self.sendResponse(resp, channelID)
+          
 
         
   def sendResponse(self, msg, channelID):
